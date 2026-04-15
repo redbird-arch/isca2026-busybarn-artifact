@@ -228,7 +228,7 @@ def plot_figure():
 
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    plt.rcParams['font.family'] = 'Tw Cen MT'
+    plt.rcParams['font.family'] = 'sans-serif'
 
     ax.bar(x_positions, comps, bar_w, color=COLORS['Compute'],
            edgecolor='none')
@@ -252,12 +252,12 @@ def plot_figure():
                 continue
             if height >= MIN_INSIDE:
                 ax.text(x_positions[i], bottom + height / 3, f"{pct:.0%}",
-                        ha='center', va='center', fontsize=24,
+                        ha='center', va='center', fontsize=20,
                         color='white', fontweight='bold')
             else:
                 ax.text(x_positions[i], bottom,
                         f"{pct:.0%}",
-                        ha='center', va='top', fontsize=24,
+                        ha='center', va='top', fontsize=20,
                         color='white', fontweight='bold')
 
     n_bars = len(BAR_CONFIGS)
@@ -292,12 +292,12 @@ def plot_figure():
                 ((x_positions[base_i] + x_positions[other_i]) / 2,
                  (base_top + other_top) / 2))
             ax.text(lbl_x, lbl_y, f"{spd:.2f}x",
-                    fontsize=24, fontweight='bold', color='black',
+                    fontsize=20, fontweight='bold', color='black',
                     ha='center', va='bottom')
 
 
     ax.set_xticks(x_positions)
-    ax.set_xticklabels(bar_label_list, fontsize=18, rotation=0, ha='center')
+    ax.set_xticklabels(bar_label_list, fontsize=14, rotation=0, ha='center')
 
     GROUP_LABEL_POS = {
         "Dataflow":          (0.4, -0.1),
@@ -306,7 +306,7 @@ def plot_figure():
     for label, pos in GROUP_LABEL_POS.items():
         if pos is not None:
             ax.text(pos[0], pos[1], label,
-                    ha='center', va='top', fontsize=28, fontweight='bold')
+                    ha='center', va='top', fontsize=24, fontweight='bold')
 
 
     seg_handles = [
@@ -317,18 +317,18 @@ def plot_figure():
         mpatches.Patch(facecolor=COLORS['Comm'], edgecolor='black',
                        label='Comm'),
     ]
-    ax.legend(handles=seg_handles, fontsize=24,
+    ax.legend(handles=seg_handles, fontsize=20,
               loc='upper center', bbox_to_anchor=(0.28, 1.),
               frameon=False, ncol=3, columnspacing=0.2,
               handletextpad=0.1)
 
     sp_detail = ", ".join(f"{op}={PER_OP_SP[op]}" for op in OPERATORS)
-    ax.set_ylabel('Normalized Latency', fontsize=24)
+    ax.set_ylabel('Normalized Latency', fontsize=20)
 
     max_val = max((comps[i] + ovls[i] + comms[i])
                   for i in range(len(x_positions)))
     ax.set_ylim(0, max(max_val * 1.15, 1.2))
-    ax.tick_params(axis='y', labelsize=22)
+    ax.tick_params(axis='y', labelsize=18)
     ax.grid(False)
     ax.grid(axis='y', linestyle='--', alpha=0.6)
     ax.tick_params(axis='x', which='both', length=0)

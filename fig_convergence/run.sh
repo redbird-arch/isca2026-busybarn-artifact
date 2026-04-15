@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+
 mkdir -p ./results ./logs
 
 HW_CFG="../src/platform/cfgs/wamis_hd_distributed.cfg"

@@ -110,7 +110,7 @@ colors_G = {
     'Comm':    "#06d6a0"}
 
 fig, ax = plt.subplots(figsize=(8, 6))
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 
 for i, r in enumerate(records):
@@ -126,7 +126,7 @@ for i, r in enumerate(records):
     ax.bar(x_gem[i], gem_c_norm[i],   bar_w, edgecolor='black', linewidth = 1.7, bottom=gem_b_norm[i]+gem_ovl_norm[i], color=colors_G['Comm'], alpha=1.0, hatch=hatch_gem, label='Comm (G)' if i==0 else "")
 plt.grid(axis='y', ls='--')
 ax.legend(ncol=2, 
-          fontsize=20, 
+          fontsize=16, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.35, 1.33),
@@ -142,12 +142,12 @@ group_centers = [
 group_labels = ['8 TFLOPs', '16 TFLOPs', '32 TFLOPs']
 
 ax.set_xticks(group_centers)
-ax.set_xticklabels(group_labels, fontsize=20)
+ax.set_xticklabels(group_labels, fontsize=16)
 ax.tick_params(axis='both',
                which='major',
-               labelsize=18) 
-ax.set_xlabel('Core Computation Power and Failure Pattern', fontsize=20)
-ax.set_ylabel('Normalized Latency', fontsize=20)
+               labelsize=14) 
+ax.set_xlabel('Core Computation Power and Failure Pattern', fontsize=16)
+ax.set_ylabel('Normalized Latency', fontsize=16)
 ax2 = ax.twinx()
 speedup = gem_a / busy_a
 x_speed  = (x_busy + x_gem) / 2
@@ -162,10 +162,10 @@ ax2.plot(
     label='Speedup'
 )
 ax2.set_ylim(1, 1.5)
-ax2.tick_params(axis='y', which='major', labelsize=20)
-ax2.set_ylabel('Speedup', fontsize=20)
+ax2.tick_params(axis='y', which='major', labelsize=16)
+ax2.set_ylabel('Speedup', fontsize=16)
 legend1 = ax2.legend(ncol=1, 
-          fontsize=20, 
+          fontsize=16, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.86, 1.15),
@@ -196,7 +196,7 @@ ax3.get_yaxis().set_ticks([])
 ax3.legend(
     handles=[patch_no, patch_fail],
     ncol=1, 
-    fontsize=20, 
+    fontsize=16, 
     loc='upper center',
     frameon=False,
     bbox_to_anchor=(0.89, 1.33),

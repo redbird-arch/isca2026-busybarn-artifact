@@ -177,13 +177,13 @@ between Core2-Die1 and Core0-Die3."
 **Local:**
 ```bash
 cd fig_heatmap/
-./run.sh 1000    # runs SA internally for each operator, --steps 1000
+bash ./run.sh 1000    # runs SA internally for each operator, --steps 1000
 ```
 
 **SLURM:**
 ```bash
 cd fig_heatmap/
-./run_slurm.sh 1000
+bash ./run_slurm.sh 1000
 ```
 
 **What it tests:** Per-core and per-link utilization after SA optimization. Shows how
@@ -204,13 +204,13 @@ and BusyBarn vs Gemini speedup with latency reduction percentage.
 **Local:**
 ```bash
 cd fig_endtoend/
-./run.sh 16    # runs all 12 model experiments, then aggregates and plots
+bash ./run.sh 16    # runs all 12 model experiments, then aggregates and plots
 ```
 
 **SLURM:**
 ```bash
 cd fig_endtoend/
-./run_slurm.sh       # generates locally, submits model runs via sbatch
+bash ./run_slurm.sh       # generates locally, submits model runs via sbatch
 # after all model jobs complete:
 python end_to_end.py
 python endtoend_pic.py
@@ -261,13 +261,13 @@ the near-optimal value obtained from one million search attempts."
 **Local:**
 ```bash
 cd fig_convergence/
-./run.sh    # 8 SA convergence traces + 4 brute-force baselines, then plots
+bash ./run.sh    # 8 SA convergence traces + 4 brute-force baselines, then plots
 ```
 
 **SLURM:**
 ```bash
 cd fig_convergence/
-./run_slurm.sh       # submits 8 SA + 4 brute-force jobs
+bash ./run_slurm.sh       # submits 8 SA + 4 brute-force jobs
 # after jobs complete:
 python plot_convergence.py
 ```
@@ -302,14 +302,14 @@ and wall-clock timings (for the breakdown pie chart).
 **Local:**
 ```bash
 cd fig_ablation/
-./run.sh 4    # 32 runs (4 ops × 2 variants × 2 barrier × 2 reroute), max 4 parallel
+bash ./run.sh 4    # 32 runs (4 ops × 2 variants × 2 barrier × 2 reroute), max 4 parallel
 make draw_pic # produces both figures
 ```
 
 **SLURM:**
 ```bash
 cd fig_ablation/
-./run_slurm.sh    # submits 32 jobs via sbatch
+bash ./run_slurm.sh    # submits 32 jobs via sbatch
 # after jobs complete:
 make draw_pic
 ```

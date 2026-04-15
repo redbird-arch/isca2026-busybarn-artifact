@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 DEFAULT_JOBS=4
-[ -n "$1" ] && MAX_JOBS="$1" || MAX_JOBS="$DEFAULT_JOBS"
+MAX_JOBS="${1:-$DEFAULT_JOBS}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/../utils/job_pool.sh"
 
 python cfg.py
 
@@ -43,6 +49,7 @@ VARIANTS=(busybarn gemini)
 
 jobcount=0
 run_id=1
+reset_tracked_jobs
 
 for op in "${OPERATORS[@]}"; do
   split_degree="${SPLITS[$op]}"
@@ -85,18 +92,19 @@ for op in "${OPERATORS[@]}"; do
           ${barrier} \
           ${reroute_flag} \
           > "$logfile" 2>&1 &
+        track_job "$!" "${outname}_${run_id}"
 
         run_id=$((run_id + 1))
         jobcount=$((jobcount + 1))
         if (( jobcount >= MAX_JOBS )); then
-          wait -n || true
-          jobcount=$((jobcount - 1))
+          wait_for_tracked_jobs
+          jobcount=0
         fi
       done
     done
   done
 done
 
-wait || true
+wait_for_tracked_jobs
 echo "All done. Logs in $LOG_DIR/"
 echo "Run 'python plot_16x16_1x1.py' to generate figure."

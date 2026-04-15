@@ -7,7 +7,7 @@ run_models:
 	@echo "All model experiments done."
 
 run_slurm:
-	./run_slurm.sh
+	bash ./run_slurm.sh
 
 run_aggregate:
 	python end_to_end.py

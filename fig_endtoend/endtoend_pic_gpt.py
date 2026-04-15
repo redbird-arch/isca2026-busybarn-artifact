@@ -9,7 +9,7 @@ from matplotlib import font_manager
 
 file_path = os.path.dirname(os.path.realpath(__file__))
 
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 
 json_path = os.path.join(file_path, "results", "endtoend_speedup.json")
@@ -66,7 +66,7 @@ for ax, size in zip(axes, sizes):
 
     text_x_pos      = 0.02
     text_y_pos      = 0.95
-    text_fontsize   = 28
+    text_fontsize   = 24
     text_fontweight = 'bold'
 
     ax.text(
@@ -80,10 +80,10 @@ for ax, size in zip(axes, sizes):
     )
 
     ax.set_xticks(x_groups)
-    ax.set_xticklabels(backend_list, fontsize=32)
+    ax.set_xticklabels(backend_list, fontsize=28)
 
-    ax.tick_params(axis='y', labelsize=24)
-    ax.set_ylabel("Speedup", fontsize=32)
+    ax.tick_params(axis='y', labelsize=20)
+    ax.set_ylabel("Speedup", fontsize=28)
     ax.yaxis.set_major_locator(mticker.MultipleLocator(0.5))
 
     ax.axhline(y=1.0, color='gray', linestyle='-', linewidth=0.8, zorder=0)
@@ -107,7 +107,7 @@ ax0.legend(
     bbox_to_anchor=(1.01, 1.5),
     ncol=3,
     frameon=False,
-    fontsize=24,
+    fontsize=20,
     columnspacing=0.5,
     handletextpad=0.2,
     borderpad=0.1,

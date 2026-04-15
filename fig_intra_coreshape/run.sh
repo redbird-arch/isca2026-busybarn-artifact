@@ -1,29 +1,31 @@
 #!/usr/bin/env bash
 
-DEFAULT_JOBS=16
+set -euo pipefail
 
-if [ -z "$1" ]; then
-  MAX_JOBS="$DEFAULT_JOBS"
-else
-  MAX_JOBS="$1"
-fi
+DEFAULT_JOBS=16
+MAX_JOBS="${1:-$DEFAULT_JOBS}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/../utils/job_pool.sh"
 
 mkdir -p ./results
 
 jobcount=0
+reset_tracked_jobs
 for script in ./py/*.py; do
   [ -e "$script" ] || continue
   base=$(basename "$script" .py)
   outfile="./results/${base}.txt"
 
   python "$script" > "$outfile" 2>&1 &
-
-  ((jobcount++))
+  track_job "$!" "$base"
+  jobcount=$((jobcount + 1))
   if (( jobcount >= MAX_JOBS )); then
-    wait -n || true
-    ((jobcount--))
+    wait_for_tracked_jobs
+    jobcount=0
   fi
 done
 
-wait || true
+wait_for_tracked_jobs
 echo "All done. Results in ./results/"

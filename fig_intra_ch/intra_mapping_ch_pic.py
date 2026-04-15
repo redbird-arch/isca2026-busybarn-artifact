@@ -119,7 +119,7 @@ x_busy = ind - bar_w/2
 x_gem  = ind + bar_w/2
 
 fig, ax = plt.subplots(figsize=(16,6))
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 hatch_busy = ''
 hatch_gem  = '///'
@@ -151,13 +151,13 @@ for i in range(n):
            label='Comm (G)'    if i==0 else "")
 
 ax.set_xticks(ind)
-ax.set_xticklabels([r['ch'] for r in records], fontsize=30)
+ax.set_xticklabels([r['ch'] for r in records], fontsize=26)
 ax.tick_params(axis='both',
                which='major',
-               labelsize=33) 
+               labelsize=29) 
 ax.set_yticks([0,1,2,3])
-ax.set_ylabel('Normalized Latency', fontsize=30)
-ax.set_xlabel('Die Group Shape', fontsize=32)
+ax.set_ylabel('Normalized Latency', fontsize=26)
+ax.set_xlabel('Die Group Shape', fontsize=28)
 plt.grid(axis='y', ls='--')
 
 handles, labels = ax.get_legend_handles_labels()
@@ -173,7 +173,7 @@ ordered_labels  = [l for l in order if l in label2handle]
 plt.legend(
           ordered_handles, ordered_labels,
           ncol=3, 
-          fontsize=31, 
+          fontsize=27, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.41, 1.5),
@@ -202,10 +202,10 @@ ax2.plot(
 
 ax2.tick_params(axis='both',
                which='major',
-               labelsize=32) 
+               labelsize=28) 
 
 plt.legend(ncol=1, 
-          fontsize=32, 
+          fontsize=28, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.86, 1.4),
@@ -221,8 +221,8 @@ print(f"  min={min(speedup):.3f}x  max={max(speedup):.3f}x  mean={np.mean(speedu
 
 ax2.set_ylim(1, 2)
 ax2.set_yticks([1.0, 1.2, 1.4, 1.6, 1.8, 2.0])
-ax2.tick_params(axis='y', which='major', labelsize=33)
-ax2.set_ylabel('Speedup', fontsize=34)
+ax2.tick_params(axis='y', which='major', labelsize=29)
+ax2.set_ylabel('Speedup', fontsize=30)
 
 handles1, labels1 = ax.get_legend_handles_labels()
 handles2, labels2 = ax2.get_legend_handles_labels()

@@ -12,7 +12,7 @@ local execution instructions.
 #    (see "Configuration" section below)
 
 # 2. Submit all experiments
-./run_all_slurm.sh
+bash ./run_all_slurm.sh
 
 # 3. Monitor
 squeue -u $USER
@@ -21,7 +21,7 @@ squeue -u $USER
 #    (instructions printed by run_all_slurm.sh)
 
 # 5. Collect all figures and summaries
-./collect_results.sh
+bash ./collect_results.sh
 ```
 
 ---
@@ -51,7 +51,7 @@ Each experiment has a `run_slurm.sh` that submits jobs via `sbatch --wrap`:
 ```bash
 cd fig_intra_ch/
 make generate_exp     # always run locally first
-make run_slurm        # or: ./run_slurm.sh
+make run_slurm        # or: bash ./run_slurm.sh
 # wait for jobs to finish, then:
 make draw_pic
 ```
@@ -59,7 +59,7 @@ make draw_pic
 ## Full SLURM run
 
 ```bash
-./run_all_slurm.sh    # generates locally, submits all compute via sbatch
+bash ./run_all_slurm.sh    # generates locally, submits all compute via sbatch
 # after all jobs complete, run plotting commands printed at the end
 ```
 

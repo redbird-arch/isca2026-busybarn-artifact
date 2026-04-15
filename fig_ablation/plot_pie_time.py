@@ -82,7 +82,7 @@ def main():
     args = parser.parse_args()
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    plt.rcParams['font.family'] = 'Tw Cen MT'
+    plt.rcParams['font.family'] = 'sans-serif'
 
     b_str = "+barrier" if args.barrier else ""
     r_str = "+reroute" if args.reroute else ""
@@ -148,7 +148,7 @@ def main():
             x = 0.75 * wedge.r * plt.np.cos(plt.np.deg2rad(angle))
             y = 0.74 * wedge.r * plt.np.sin(plt.np.deg2rad(angle))
             ax.text(x, y, f'{pct:.1f}%', ha='center', va='center',
-                   fontsize=28, fontweight='bold')
+                   fontsize=24, fontweight='bold')
         else:
             x1 = 1.0 * wedge.r * plt.np.cos(plt.np.deg2rad(angle))
             y1 = 1.0 * wedge.r * plt.np.sin(plt.np.deg2rad(angle))
@@ -161,7 +161,7 @@ def main():
             ax.plot([x1, x2], [y1, y2], color='gray', linewidth=2)
             ha = 'left' if x2 > 0 else 'right'
             ax.text(x2, y2, f'{pct:.1f}%', ha=ha, va='center',
-                   fontsize=28, fontweight='bold')
+                   fontsize=24, fontweight='bold')
 
     first_angle = (wedges[0].theta1 + wedges[0].theta2 * 2) / 3
     last_angle = (wedges[-2].theta1 + wedges[-2].theta2 * 1.2 ) / 2.2
@@ -185,13 +185,13 @@ def main():
     ax.set_position([0.0, 0.05, 0.55, 0.9])
 
     leg1 = fig.legend(wedges, labels, loc='upper left', bbox_to_anchor=(0.445, 0.87),
-                      ncol=1, fontsize=24, frameon=False)
+                      ncol=1, fontsize=20, frameon=False)
 
     arrow_handle = Line2D([0], [0], color='grey', linewidth=4, linestyle='--',
                           marker='>', markersize=14, markeredgecolor='grey')
     fig.legend([arrow_handle], ["Execution Order"],
                loc='lower left', bbox_to_anchor=(0.12, 0.05),
-               fontsize=24, frameon=False)
+               fontsize=20, frameon=False)
 
     b_tag = "_barrier" if args.barrier else ""
     r_tag = "_reroute" if args.reroute else ""

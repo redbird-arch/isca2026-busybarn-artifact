@@ -9,7 +9,7 @@ from matplotlib import font_manager
 
 file_path = os.path.dirname(os.path.realpath(__file__))
 
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 
 json_path = os.path.join(file_path, "results", "endtoend_speedup.json")
@@ -88,7 +88,7 @@ for ax, size in zip(axes, sizes):
 
     text_x_pos      = 0.02
     text_y_pos      = 0.95
-    text_fontsize   = 32
+    text_fontsize   = 28
     text_fontweight = 'bold'
 
     ax.text(
@@ -102,10 +102,10 @@ for ax, size in zip(axes, sizes):
     )
 
     ax.set_xticks(x_groups)
-    ax.set_xticklabels(backend_list, fontsize=40)
+    ax.set_xticklabels(backend_list, fontsize=36)
 
-    ax.tick_params(axis='y', labelsize=30)
-    ax.set_ylabel("Speedup", fontsize=40)
+    ax.tick_params(axis='y', labelsize=26)
+    ax.set_ylabel("Speedup", fontsize=36)
     ax.yaxis.set_major_locator(mticker.MultipleLocator(0.5))
 
     ax.set_axisbelow(True)
@@ -128,7 +128,7 @@ leg1 = ax0.legend(
     bbox_to_anchor=(-0.01, 1.6),
     ncol=len(models)//2,
     frameon=False,
-    fontsize=30,
+    fontsize=26,
     columnspacing=0.5,
     handletextpad=0.2,
     borderpad=0.1,
@@ -141,7 +141,7 @@ leg2 = ax0.legend(
     bbox_to_anchor=(1.01, 1.6),
     ncol=1,
     frameon=False,
-    fontsize=30,
+    fontsize=26,
     columnspacing=0.2,
     handletextpad=0.2,
     borderpad=0.1,

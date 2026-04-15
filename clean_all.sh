@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
@@ -12,6 +14,12 @@ for d in fig_communication \
          fig_convergence \
          fig_heatmap \
          fig_ablation; do
+  echo "Cleaning $d"
+  (cd "$d" && make clean)
+done
+
+for d in models/*/; do
+  [ -d "$d" ] || continue
   echo "Cleaning $d"
   (cd "$d" && make clean)
 done

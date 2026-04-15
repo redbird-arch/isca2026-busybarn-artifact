@@ -379,12 +379,12 @@ def _draw_on_ax(ax, node_grid, co2co_links, ch2ch_links,
             if ch_r == l2_h - 1:
                 cy = y0 - pad - 0.04
                 ax.text(cx, cy, f'Die {ch_r * l2_w + ch_c}',
-                        ha='center', va='top', fontsize=48,
+                        ha='center', va='top', fontsize=44,
                         color='#555555', fontweight='bold')
             else:
                 cy = y1 + pad - 0.02
                 ax.text(cx, cy, f'Die {ch_r * l2_w + ch_c}',
-                        ha='center', va='bottom', fontsize=48,
+                        ha='center', va='bottom', fontsize=44,
                         color='#555555', fontweight='bold')
 
     pad = cell_size * 0.75
@@ -402,7 +402,7 @@ def _draw_on_ax(ax, node_grid, co2co_links, ch2ch_links,
             core_idx = core_r * l1_w + core_c
             txt_color = 'white' if node_norm(node_grid[r, c]) > 0.90 else 'black'
             ax.text(x, y, f'{core_idx}', ha='center', va='center',
-                    fontsize=56, color=txt_color, fontweight='bold', zorder=3)
+                    fontsize=52, color=txt_color, fontweight='bold', zorder=3)
 
     x_min, y_min = rc_to_xy(total_rows - 1, 0)
     x_max, y_max = rc_to_xy(0, total_cols - 1)
@@ -412,7 +412,7 @@ def _draw_on_ax(ax, node_grid, co2co_links, ch2ch_links,
     ax.set_aspect('equal')
     ax.axis('off')
 
-    ax.set_title(title, fontsize=48, fontweight='bold', pad=15,
+    ax.set_title(title, fontsize=44, fontweight='bold', pad=15,
                  x=title_x, y=title_y)
 
     return segments_co2co, segments_ch2ch
@@ -426,7 +426,7 @@ def draw_combined(variant_data, total_rows, total_cols,
     variant_data: list of (variant_name, node_grid, co2co_work, ch2ch_work, title, stats)
     title_x, title_y: position of each panel title in axes coordinates (default: centered top)
     """
-    plt.rcParams['font.family'] = 'Tw Cen MT'
+    plt.rcParams['font.family'] = 'sans-serif'
 
     all_node_vals = [d[1].max() for d in variant_data]
     node_vmax = max(max(all_node_vals), 0.01)
@@ -485,9 +485,9 @@ def draw_combined(variant_data, total_rows, total_cols,
     sm_node.set_array([])
     cax_node = fig.add_axes(cbar_node_pos)
     cbar_node = fig.colorbar(sm_node, cax=cax_node)
-    cbar_node.set_label('Core Working Time (cycles)', fontsize=40)
+    cbar_node.set_label('Core Working Time (cycles)', fontsize=36)
     cbar_node.ax.yaxis.set_major_formatter(plt.FuncFormatter(_fmt_cycles))
-    cbar_node.ax.tick_params(labelsize=36)
+    cbar_node.ax.tick_params(labelsize=32)
 
     if has_co2co or has_ch2ch:
         sm_link = cm.ScalarMappable(
@@ -495,9 +495,9 @@ def draw_combined(variant_data, total_rows, total_cols,
         sm_link.set_array([])
         cax_link = fig.add_axes(cbar_link_pos)
         cbar_link = fig.colorbar(sm_link, cax=cax_link)
-        cbar_link.set_label('Link Working Time (cycles)', fontsize=40)
+        cbar_link.set_label('Link Working Time (cycles)', fontsize=36)
         cbar_link.ax.yaxis.set_major_formatter(plt.FuncFormatter(_fmt_cycles))
-        cbar_link.ax.tick_params(labelsize=36)
+        cbar_link.ax.tick_params(labelsize=32)
 
 
     out_pdf = os.path.join(RESULTS_DIR, out_base + ".pdf")

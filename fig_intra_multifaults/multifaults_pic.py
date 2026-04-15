@@ -101,7 +101,7 @@ x_busy = ind - bar_w/2
 x_gem  = ind + bar_w/2
 
 fig, ax = plt.subplots(figsize=(16, 6))
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 for i, r in enumerate(records):
     hatch_busy = '//' if (r['fail'] % 2 == 1) else 'x'
@@ -132,7 +132,7 @@ legend_handles = [
     mpatches.Patch(facecolor=colors_G['Comm'],    edgecolor='black', label='Comm (G)'),
 ]
 ax.legend(handles=legend_handles,
-          ncol=3, fontsize=30, 
+          ncol=3, fontsize=26, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.31, 1.42),
@@ -151,10 +151,10 @@ group_centers = [
 group_labels = ['10%', '15%', '20%']
 
 ax.set_xticks(group_centers)
-ax.set_xticklabels(group_labels, fontsize=30)
-ax.tick_params(axis='both', which='major', labelsize=32) 
-ax.set_xlabel('Failure Rate', fontsize=32)
-ax.set_ylabel('Normalized Latency', fontsize=29)
+ax.set_xticklabels(group_labels, fontsize=26)
+ax.tick_params(axis='both', which='major', labelsize=28) 
+ax.set_xlabel('Failure Rate', fontsize=28)
+ax.set_ylabel('Normalized Latency', fontsize=25)
 ax.set_yticks([0, 0.5, 1.0, 1.5])
 
 ax2 = ax.twinx()
@@ -172,11 +172,11 @@ ax2.plot(
     label='Speedup'
 )
 ax2.set_ylim(1, 1.6)
-ax2.tick_params(axis='y', which='major', labelsize=31)
+ax2.tick_params(axis='y', which='major', labelsize=27)
 ax2.set_yticks([1.0, 1.2, 1.4, 1.6])
-ax2.set_ylabel('Speedup', fontsize=38)
+ax2.set_ylabel('Speedup', fontsize=34)
 legend1 = ax2.legend(ncol=1, 
-          fontsize=32, 
+          fontsize=28, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.93, 1.42),
@@ -207,7 +207,7 @@ ax3.get_yaxis().set_ticks([])
 ax3.legend(
     handles=[patch_no, patch_fail],
     ncol=1, 
-    fontsize=30, 
+    fontsize=26, 
     loc='upper center',
     frameon=False,
     bbox_to_anchor=(0.76, 1.42),

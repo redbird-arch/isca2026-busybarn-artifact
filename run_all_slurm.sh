@@ -13,22 +13,22 @@ echo "=== Phase 1: Template-based experiments ==="
 
 for d in fig_communication fig_intra_ch fig_intra_coreshape fig_intra_power fig_intra_multifaults; do
     echo "--- $d ---"
-    (cd "$d" && make generate_exp && source run_slurm.sh)
+    (cd "$d" && make generate_exp && bash ./run_slurm.sh)
 done
 
 
 echo ""
 echo "=== Phase 2: End-to-end model experiments ==="
 
-(cd fig_endtoend && source run_slurm.sh)
+(cd fig_endtoend && bash ./run_slurm.sh)
 
 
 echo ""
 echo "=== Phase 3: SA-based experiments ==="
 
-(cd fig_convergence && source run_slurm.sh)
-(cd fig_heatmap && source run_slurm.sh 1000)
-(cd fig_ablation && source run_slurm.sh)
+(cd fig_convergence && bash ./run_slurm.sh)
+(cd fig_heatmap && bash ./run_slurm.sh 1000)
+(cd fig_ablation && bash ./run_slurm.sh)
 
 echo ""
 echo "============================================"

@@ -18,7 +18,7 @@ file_path = os.path.dirname(os.path.realpath(__file__))
 RESULTS_DIR = os.path.join(file_path, "results")
 
 
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 COLORS = {
     'busybarn': "#a1dff4",
@@ -112,7 +112,7 @@ if all(v is not None for v in brute_vals.values()):
     ax.axhline(brute_bound, color='#e63946', linestyle='--', linewidth=1.5)
     ax.text(0.225, 0.10, f'After 1M brute-force searches: {brute_bound:.2e} cycles',
             transform=ax.transAxes,
-            ha='left', va='center', fontsize=28, color='#e63946')
+            ha='left', va='center', fontsize=24, color='#e63946')
 
     if busybarn_data is not None:
         steps, latency = busybarn_data
@@ -127,16 +127,16 @@ if all(v is not None for v in brute_vals.values()):
 
             ax.text(0.19, 0.14, f'{ratio:.1f}%',
                    transform=ax.transAxes,
-                   fontsize=24, va='center', ha='right')
+                   fontsize=20, va='center', ha='right')
 
-ax.set_xlabel('SA Iteration', fontsize=30)
-ax.set_ylabel('Latency (cycles)', fontsize=30)
-ax.tick_params(axis='both', labelsize=28)
+ax.set_xlabel('SA Iteration', fontsize=26)
+ax.set_ylabel('Latency (cycles)', fontsize=26)
+ax.tick_params(axis='both', labelsize=24)
 ax.ticklabel_format(style='scientific', axis='y', scilimits=(0,0))
-ax.yaxis.get_offset_text().set_fontsize(28)
+ax.yaxis.get_offset_text().set_fontsize(24)
 ax.yaxis.grid(True, linestyle='--', alpha=0.6)
 ax.set_axisbelow(True)
-ax.legend(fontsize=28, frameon=False, loc='upper right')
+ax.legend(fontsize=24, frameon=False, loc='upper right')
 
 plt.tight_layout()
 

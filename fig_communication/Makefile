@@ -11,10 +11,10 @@ generate_exp:
 
 run_scripts:
 	mkdir -p ./results
-	./run.sh
+	bash ./run.sh
 
 run_slurm:
-	./run_slurm.sh
+	bash ./run_slurm.sh
 
 clean_results:
 	rm -rf ./results

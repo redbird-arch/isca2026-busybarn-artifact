@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager
 from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['DejaVu Sans']
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 file_path = os.path.dirname(os.path.realpath(__file__))
 output_dir = os.path.join(file_path, 'results')
@@ -377,12 +377,12 @@ plt.scatter(alltoall_x_xy, alltoall_y_xy,
             zorder=3,
             s=240)
 
-plt.xlabel('Failure Type Index', fontsize=40)
-plt.ylabel('Bandwidth (GB/s)', fontsize=38)
+plt.xlabel('Failure Type Index', fontsize=36)
+plt.ylabel('Bandwidth (GB/s)', fontsize=34)
 plt.legend(
     loc='center right',
     bbox_to_anchor=(1.06, 1.05),
-    fontsize=27,
+    fontsize=23,
     ncol=4,               
     columnspacing=0.08,
     handletextpad=-0.5,    
@@ -402,7 +402,7 @@ for i in range(len(boundaries) - 1):
     plt.text(
         x_center, y_pos, str(i),
         ha='center', va='center',
-        fontsize=30, fontweight=700, 
+        fontsize=26, fontweight=700, 
         color='#1F2937', zorder=10, clip_on=False,
         bbox=dict(
             boxstyle='round,pad=0.1,rounding_size=0.2',
@@ -411,8 +411,8 @@ for i in range(len(boundaries) - 1):
         )
 )
 
-plt.xticks(fontsize=34)
-plt.yticks(fontsize=34)
+plt.xticks(fontsize=30)
+plt.yticks(fontsize=30)
 
 plt.tight_layout()
 plt.savefig(os.path.join(file_path, './pic/failures.pdf'), dpi=300)

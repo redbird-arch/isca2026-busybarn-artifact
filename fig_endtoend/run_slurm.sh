@@ -17,7 +17,7 @@ for d in "${EVAL_DIR}"/models/*/; do
     [ -d "$d" ] || continue
     [ -f "$d/run_slurm.sh" ] || continue
     echo "  $(basename "$d")"
-    (cd "$d" && source run_slurm.sh)
+    (cd "$d" && bash ./run_slurm.sh)
 done
 
 echo "All model jobs submitted."

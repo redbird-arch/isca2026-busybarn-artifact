@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 JOBS="${1:-16}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
+# shellcheck disable=SC1091
+source "$SCRIPT_DIR/utils/job_pool.sh"
 
 echo "============================================"
 echo "  BusyBarn Quick Validation Test"
@@ -12,37 +16,42 @@ echo "============================================"
 
 
 echo ""
-echo "=== [1/5] Fig. 8a: AllGather Communication ==="
+echo "=== [1/4] Fig. 8a: AllGather Communication ==="
 cd "$SCRIPT_DIR/fig_communication"
 make generate_exp
 mkdir -p ./results ./logs
 jobcount=0
+reset_tracked_jobs
 for script in ./py/allgather_*.py; do
   [ -e "$script" ] || continue
   base=$(basename "$script" .py)
   python "$script" > "./logs/${base}.log" 2>&1 &
+  track_job "$!" "$base"
   jobcount=$((jobcount + 1))
-  if (( jobcount >= JOBS )); then wait -n || true; jobcount=$((jobcount - 1)); fi
+  if (( jobcount >= JOBS )); then
+    wait_for_tracked_jobs
+    jobcount=0
+  fi
 done
-wait || true
+wait_for_tracked_jobs
 python allgather_synthetic_pic.py
-echo "[1/5] Done: pic/allgather_synthetic.pdf"
+echo "[1/4] Done: pic/allgather_synthetic.pdf"
 
 
 echo ""
-echo "=== [2/5] Fig. 10c: Power/Fault Sensitivity ==="
+echo "=== [2/4] Fig. 10c: Power/Fault Sensitivity ==="
 cd "$SCRIPT_DIR/fig_intra_power"
 make generate_exp
-./run.sh "$JOBS"
+bash ./run.sh "$JOBS"
 make draw_pic
-echo "[2/5] Done: pic/intra_mapping_power_pic.pdf"
+echo "[2/4] Done: pic/intra_mapping_power_pic.pdf"
 
 
 echo ""
-echo "=== [3/5] Fig. 11: Workload Distribution Heatmap ==="
+echo "=== [3/4] Fig. 11: Workload Distribution Heatmap ==="
 cd "$SCRIPT_DIR/fig_heatmap"
-./run.sh 1000
-echo "[3/5] Done: results/hot_transformer_block_combined_step1000.pdf"
+bash ./run.sh 1000
+echo "[3/4] Done: results/hot_transformer_block_combined_step1000.pdf"
 
 
 echo ""
@@ -55,7 +64,7 @@ done
 for d in intra_mapping_gpt_prefill intra_mapping_gpt_decode; do
   echo "  Running: models/$d"
   cd "$SCRIPT_DIR/models/$d"
-  ./run.sh "$JOBS"
+  bash ./run.sh "$JOBS"
 done
 cd "$SCRIPT_DIR/fig_endtoend"
 python end_to_end.py
@@ -70,4 +79,4 @@ echo "============================================"
 
 echo ""
 echo "=== Collecting results ==="
-"$SCRIPT_DIR/collect_results.sh"
+bash "$SCRIPT_DIR/collect_results.sh"

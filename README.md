@@ -15,21 +15,21 @@ pip install -r requirements.txt
 
 # 2. Quick test (~10 min):
 cd fig_heatmap/
-./run.sh && make draw_pic
+bash ./run.sh 1000
 
 # 3. Run everything (less than 12000 cores x hours)
-./run_all.sh 16    # 16 = max concurrent jobs (can be set as real usable cores)
+bash ./run_all.sh 16    # 16 = max concurrent jobs (can be set as real usable cores)
 
 # 4. The script automatically collect all figures and speedup summaries into output/
 # To re-collect manually:
-./collect_results.sh
+bash ./collect_results.sh
 ```
 
 ### Subset reproduction
 
 ```bash
 # Quick validation (less than 3 hours on 13900K)
-./run_quick_test.sh 16    # Fig. 8a, 10c, 11, 12(GPT)
+bash ./run_quick_test.sh 16    # Fig. 8a, 10c, 11, 12(GPT)
 ```
 
 ### SLURM cluster
@@ -101,7 +101,7 @@ All times measured on Intel Xeon Platinum 8358P (32C) and Intel Xeon Gold 6348H 
 core functionality with 5 representative experiments:
 
 ```bash
-./run_quick_test.sh 16
+bash ./run_quick_test.sh 16
 ```
 
 | Step | Figure | What it validates | Approx. Time |
@@ -181,7 +181,7 @@ output/
 ```
 
 Missing figures (e.g., when using `run_quick_test.sh`) are skipped and reported.
-To re-collect after manual runs: `./collect_results.sh`
+To re-collect after manual runs: `bash ./collect_results.sh`
 
 ---
 
@@ -228,5 +228,4 @@ Step    Time_cost    Energy
 SA optimization is seeded (`--seed 123` by default) but results may vary slightly across
 platforms due to floating-point ordering. Figures should be qualitatively identical —
 same trends, same relative ordering — but absolute numbers may differ by a few percent.
-
 

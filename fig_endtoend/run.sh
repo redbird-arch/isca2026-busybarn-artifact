@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 JOBS="${1:-16}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR"
 mkdir -p ./results ./pic
 
 echo "=== Phase 1: Generate experiments for all models ==="
@@ -12,7 +16,7 @@ done
 echo "=== Phase 2: Run all model experiments ==="
 for d in ../models/*/; do
   echo "Running: $d"
-  (cd "$d" && ./run.sh "$JOBS")
+  (cd "$d" && bash ./run.sh "$JOBS")
 done
 
 echo "=== Phase 3: Aggregate results ==="

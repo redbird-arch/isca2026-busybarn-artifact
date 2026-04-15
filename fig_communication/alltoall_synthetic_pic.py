@@ -72,7 +72,7 @@ for (r, c) in shapes:
 
 x = list(range(len(message_str)))
 
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 plt.figure(figsize=(10, 9.6))
 ax = plt.gca()
@@ -98,15 +98,15 @@ plt.plot(x, ring_bandwidth, label='2D Ring' , marker=markers[4], markersize=16,
                 color=line_colors[4], markerfacecolor=fill_colors[4], markeredgecolor=line_colors[4],
                 linestyle='-', markeredgewidth=3, linewidth=6)
 
-plt.xticks(x, message_str, rotation=50, fontsize=36)
-plt.yticks(fontsize=37)
+plt.xticks(x, message_str, rotation=50, fontsize=32)
+plt.yticks(fontsize=33)
 ax.set_ylim(0.0, 230)
-plt.xlabel('Message Size', fontsize=46)
+plt.xlabel('Message Size', fontsize=42)
 ax.xaxis.set_label_coords(0.5, -0.3)
-plt.ylabel('Bandwidth (GB/s)', fontsize=40)
+plt.ylabel('Bandwidth (GB/s)', fontsize=36)
 
 plt.grid(True, which='both', linestyle='--', linewidth=0.5, alpha=0.7)
-plt.legend(fontsize=34, ncol=3, loc='upper center', frameon=False, handletextpad=0.3, columnspacing=0.5, labelspacing=0.3, bbox_to_anchor=(0.5, 1.32))
+plt.legend(fontsize=30, ncol=3, loc='upper center', frameon=False, handletextpad=0.3, columnspacing=0.5, labelspacing=0.3, bbox_to_anchor=(0.5, 1.32))
 
 
 plt.tight_layout()

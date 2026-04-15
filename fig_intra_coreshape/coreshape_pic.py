@@ -7,7 +7,7 @@ from matplotlib import font_manager
 from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['DejaVu Sans']
 
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 
 import sys
@@ -121,7 +121,7 @@ x_busy = ind - bar_w/2
 x_gem  = ind + bar_w/2
 
 fig, ax = plt.subplots(figsize=(16, 6))
-plt.rcParams['font.family'] = 'Tw Cen MT'
+plt.rcParams['font.family'] = 'sans-serif'
 
 for i, r in enumerate(records):
     ax.bar(x_busy[i], busy_b_norm[i],   bar_w, edgecolor='black', linewidth=0,
@@ -148,7 +148,7 @@ legend_handles = [
     mpatches.Patch(facecolor=colors_G['Comm'],    edgecolor='black', label='Comm (G)'),
 ]
 ax.legend(handles=legend_handles,
-          ncol=3, fontsize=31, loc='upper center', frameon=False,
+          ncol=3, fontsize=27, loc='upper center', frameon=False,
           bbox_to_anchor=(0.41, 1.42),
           handletextpad=0.2, 
           labelspacing=0.15, 
@@ -160,11 +160,11 @@ plt.grid(axis='y', ls='--')
 co_labels = [r['co'] for r in records]
 
 ax.set_xticks(ind)
-ax.set_xticklabels(co_labels, fontsize=24, rotation=0)
-ax.tick_params(axis='both', which='major', labelsize=33)
-ax.set_xlabel('Core Shape', fontsize=39)
+ax.set_xticklabels(co_labels, fontsize=20, rotation=0)
+ax.tick_params(axis='both', which='major', labelsize=29)
+ax.set_xlabel('Core Shape', fontsize=35)
 ax.set_yticks([0,0.5,1.0,1.5,2.0,2.5])
-ax.set_ylabel('Normalized Latency', fontsize=34)
+ax.set_ylabel('Normalized Latency', fontsize=30)
 
 ax2 = ax.twinx()
 speedup = gem_a / busy_a
@@ -181,11 +181,11 @@ ax2.plot(
     label='Speedup'
 )
 ax2.set_ylim(1, 1.63)
-ax2.tick_params(axis='both', which='major', labelsize=33)
+ax2.tick_params(axis='both', which='major', labelsize=29)
 ax2.set_yticks([1.0, 1.2, 1.4, 1.6])
-ax2.set_ylabel('Speedup', fontsize=34)
+ax2.set_ylabel('Speedup', fontsize=30)
 ax2.legend(ncol=1, 
-          fontsize=32, 
+          fontsize=28, 
           loc='upper center',
           frameon=False,
           bbox_to_anchor=(0.86, 1.34),

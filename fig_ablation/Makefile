@@ -4,10 +4,10 @@ generate_cfg:
 run_experiments:
 	mkdir -p ./results
 	chmod +x ./run.sh
-	./run.sh
+	bash ./run.sh
 
 run_slurm:
-	./run_slurm.sh
+	bash ./run_slurm.sh
 
 draw_pic:
 	python plot_16x16_1x1.py
