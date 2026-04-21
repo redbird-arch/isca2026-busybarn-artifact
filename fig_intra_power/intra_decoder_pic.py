@@ -65,11 +65,6 @@ for sq in sql_list:
                     })
 
 
-colors = {
-    'Compute': "#eca0ff",
-    'Overlap': "#ffb703",
-    'Comm':    "#84ffc9",
-}
 alpha_busy = 1
 alpha_gem = 0.5
 hatch_busy = ''
@@ -100,39 +95,57 @@ x_busy = ind - bar_w/2
 x_gem  = ind + bar_w/2
 
 colors = {
-    'Compute': "#eca0ff",
-    'Overlap': "#ffb703",
-    'Comm':    "#84ffc9",
+    'Compute': "#118ab2",
+    'Overlap': "#f77f00",
+    'Comm':    "#06d6a0",
 }
 colors_G = {
     'Compute': "#4cc9f0",
-    'Overlap': "#c77dff",
-    'Comm':    "#06d6a0"}
+    'Overlap': "#fcbf49",
+    'Comm':    "#80ed99"
+}
 
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(16, 6))
 plt.rcParams['font.family'] = 'sans-serif'
 
 
 for i, r in enumerate(records):
-    hatch_busy = '\\' if r['fail'] == 1 else ''
-    ax.bar(x_busy[i], busy_b_norm[i],   bar_w,  edgecolor='black', linewidth = 1.7,color=colors['Compute'], alpha=1.0, hatch=hatch_busy, label='Compute (B)' if i==0 else "")
-    ax.bar(x_busy[i], busy_ovl_norm[i], bar_w,  edgecolor='black', linewidth = 1.7,bottom=busy_b_norm[i], color=colors['Overlap'], alpha=1.0, hatch=hatch_busy, label='Overlap (B)' if i==0 else "")
-    ax.bar(x_busy[i], busy_c_norm[i],   bar_w,  edgecolor='black', linewidth = 1.7,bottom=busy_b_norm[i]+busy_ovl_norm[i], color=colors['Comm'], alpha=1.0, hatch=hatch_busy, label='Comm (B)' if i==0 else "")
+    hatch_busy = '//' if r['fail'] == 1 else ''
+    edge_color = '#d81159' if r['fail'] == 1 else 'black'
+    ax.bar(x_busy[i], busy_b_norm[i],   bar_w, edgecolor=edge_color, linewidth=0, color=colors['Compute'], alpha=1.0, hatch=hatch_busy, label='Compute (B)' if i==0 else "")
+    ax.bar(x_busy[i], busy_ovl_norm[i], bar_w, edgecolor=edge_color, linewidth=0, bottom=busy_b_norm[i], color=colors['Overlap'], alpha=1.0, hatch=hatch_busy, label='Overlap (B)' if i==0 else "")
+    ax.bar(x_busy[i], busy_c_norm[i],   bar_w, edgecolor=edge_color, linewidth=0, bottom=busy_b_norm[i]+busy_ovl_norm[i], color=colors['Comm'], alpha=1.0, hatch=hatch_busy, label='Comm (B)' if i==0 else "")
 
 for i, r in enumerate(records):
-    hatch_gem = '\\' if r['fail'] == 1 else ''
-    ax.bar(x_gem[i], gem_b_norm[i],   bar_w, edgecolor='black', linewidth = 1.7, color=colors_G['Compute'], alpha=1.0, hatch=hatch_gem, label='Compute (G)' if i==0 else "")
-    ax.bar(x_gem[i], gem_ovl_norm[i], bar_w, edgecolor='black', linewidth = 1.7, bottom=gem_b_norm[i], color=colors_G['Overlap'], alpha=1.0, hatch=hatch_gem, label='Overlap (G)' if i==0 else "")
-    ax.bar(x_gem[i], gem_c_norm[i],   bar_w, edgecolor='black', linewidth = 1.7, bottom=gem_b_norm[i]+gem_ovl_norm[i], color=colors_G['Comm'], alpha=1.0, hatch=hatch_gem, label='Comm (G)' if i==0 else "")
+    hatch_gem = '//' if r['fail'] == 1 else ''
+    edge_color = '#d81159' if r['fail'] == 1 else 'black'
+    ax.bar(x_gem[i], gem_b_norm[i],   bar_w, edgecolor=edge_color, linewidth=0, color=colors_G['Compute'], alpha=1.0, hatch=hatch_gem, label='Compute (G)' if i==0 else "")
+    ax.bar(x_gem[i], gem_ovl_norm[i], bar_w, edgecolor=edge_color, linewidth=0, bottom=gem_b_norm[i], color=colors_G['Overlap'], alpha=1.0, hatch=hatch_gem, label='Overlap (G)' if i==0 else "")
+    ax.bar(x_gem[i], gem_c_norm[i],   bar_w, edgecolor=edge_color, linewidth=0, bottom=gem_b_norm[i]+gem_ovl_norm[i], color=colors_G['Comm'], alpha=1.0, hatch=hatch_gem, label='Comm (G)' if i==0 else "")
 plt.grid(axis='y', ls='--')
-ax.legend(ncol=2, 
-          fontsize=16, 
+
+handles, labels = ax.get_legend_handles_labels()
+label2handle = dict(zip(labels, handles))
+
+order = ['Compute (B)', 'Compute (G)',
+         'Overlap (B)', 'Overlap (G)',
+         'Comm (B)',    'Comm (G)']
+
+ordered_handles = [label2handle[l] for l in order if l in label2handle]
+ordered_labels  = [l for l in order if l in label2handle]
+
+plt.legend(
+          ordered_handles, ordered_labels,
+          ncol=3,
+          fontsize=27,
           loc='upper center',
           frameon=False,
-          bbox_to_anchor=(0.35, 1.33),
-          handletextpad=0.3, 
-          labelspacing=0.3, 
-          columnspacing=0.6)
+          bbox_to_anchor=(0.31, 1.42),
+          handletextpad=0.2,
+          labelspacing=0.15,
+          columnspacing=0.6,
+          handleheight=0.8,
+          handlelength=1.7)
 
 group_centers = [
     (0 + 1) / 2,
@@ -142,36 +155,41 @@ group_centers = [
 group_labels = ['8 TFLOPs', '16 TFLOPs', '32 TFLOPs']
 
 ax.set_xticks(group_centers)
-ax.set_xticklabels(group_labels, fontsize=16)
+ax.set_xticklabels(group_labels, fontsize=26)
 ax.tick_params(axis='both',
                which='major',
-               labelsize=14) 
-ax.set_xlabel('Core Computation Power and Failure Pattern', fontsize=16)
-ax.set_ylabel('Normalized Latency', fontsize=16)
+               labelsize=24)
+ax.set_xlabel('Core Computation Power and Failure Pattern', fontsize=28)
+ax.set_ylabel('Normalized Latency', fontsize=26)
+ax.set_yticks([0,1,2,3,4])
+
 ax2 = ax.twinx()
 speedup = gem_a / busy_a
 x_speed  = (x_busy + x_gem) / 2
 ax2.plot(
     x_speed,
     speedup,
-    marker='D',
+    marker='*',
     linestyle='',
-    color='#ff5d8f',
-    markeredgecolor='black',
-    markersize=10,
+    color='#a24ccd',
+    markeredgecolor='#7400b8',
+    markersize=25,
+    linewidth=12,
     label='Speedup'
 )
 ax2.set_ylim(1, 1.5)
-ax2.tick_params(axis='y', which='major', labelsize=16)
-ax2.set_ylabel('Speedup', fontsize=16)
-legend1 = ax2.legend(ncol=1, 
-          fontsize=16, 
+ax2.tick_params(axis='y', which='major', labelsize=24)
+ax2.set_yticks([1.0, 1.1, 1.2, 1.3, 1.4, 1.5])
+ax2.set_ylabel('Speedup', fontsize=30)
+legend1 = ax2.legend(ncol=1,
+          fontsize=28,
           loc='upper center',
           frameon=False,
-          bbox_to_anchor=(0.86, 1.15),
-          handletextpad=0, 
-          labelspacing=0.3, 
-          columnspacing=1)
+          bbox_to_anchor=(0.93, 1.42),
+          handletextpad=-0.2,
+          labelspacing=0.1,
+          columnspacing=0.1,
+          markerscale=1.3)
 
 power_labels = []
 for gl in group_labels:
@@ -184,25 +202,28 @@ print(f"  min={min(speedup):.3f}x  max={max(speedup):.3f}x  mean={np.mean(speedu
 
 
 patch_no    = mpatches.Patch(
-    facecolor='white', edgecolor='black', hatch='',
+    facecolor='white', edgecolor='black', hatch='', linewidth=1.5,
     label='no failure'
 )
 patch_fail  = mpatches.Patch(
-    facecolor='white', edgecolor='black', hatch='//',
+    facecolor='white', edgecolor='#d81159', hatch='//', linewidth=1.5,
     label='a failed node'
 )
 ax3 = ax.twinx()
 ax3.get_yaxis().set_ticks([])
 ax3.legend(
     handles=[patch_no, patch_fail],
-    ncol=1, 
-    fontsize=16, 
+    ncol=1,
+    fontsize=26,
     loc='upper center',
     frameon=False,
-    bbox_to_anchor=(0.89, 1.33),
-    handletextpad=0.5, 
-    labelspacing=0.3, 
-    columnspacing=1)
+    bbox_to_anchor=(0.76, 1.42),
+    handletextpad=0.2,
+    labelspacing=0.15,
+    columnspacing=0.6,
+    handleheight=0.8,
+    handlelength=1.6)
 
 plt.tight_layout()
 plt.savefig('./pic/intra_mapping_power_pic.pdf', dpi=300)
+plt.savefig('./pic/intra_mapping_power_pic.png')
